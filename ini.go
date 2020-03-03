@@ -62,10 +62,12 @@ func parseLine(line string) (key string, value string) {
 	return key, value
 }
 
+//GetString 获取string类型参数
 func GetString(key string) string {
 	return config[key]
 }
 
+//GetInt 获取int类型参数
 func GetInt(key string) int {
 	if len(config[key]) < 1 {
 		return 0
@@ -77,6 +79,7 @@ func GetInt(key string) int {
 	return num
 }
 
+//GetBool 获取bool类型参数
 func GetBool(key string) bool {
 	if len(config[key]) < 1 {
 		return false
@@ -86,4 +89,9 @@ func GetBool(key string) bool {
 		log.Printf("获取bool错误%+v\n", err)
 	}
 	return b
+}
+
+//Reload 重读配置文件
+func Reload(name string) error {
+	return Load(name)
 }

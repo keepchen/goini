@@ -1,9 +1,9 @@
 # goini
 
-> goini是用golang开发的一个超级轻量级的ini库
+> goini是用golang开发的一个超级轻量级的ini库 (**fork于github.com/houzhongjian/goini项目**)，在原有项目基础上加入配置重读功能。
 
 ### 安装方式
-> go get github.com/houzhongjian/goini
+> go get github.com/keepchen/goini
 
 ### 使用方式
 ```go
@@ -25,6 +25,19 @@ func main() {
     goini.GetInt("db_port")
     goini.GetBool("isUpload")
     ...
+  
+  	//重读
+  	go func() {
+      for {
+        time.Sleep(time.Second * 3)
+        goini.Reload("./test.ini")
+      }
+    }()
+
+    for {
+      time.Sleep(time.Second * 3)
+      fmt.Printf("(reload) isUpload: %t\n", goini.GetBool("isUpalod"))
+    }
 }
 ```
 
@@ -48,3 +61,8 @@ isShare
 page_size = 50
 
 ```
+
+#### 感谢
+
+最后，感谢[houzhongjian/goini](https://github.com/houzhongjian/goini)项目！
+
